@@ -31,7 +31,9 @@ void mousePressed() {
 }
 
 void verificarVencedor() {
-  if (userInput == 0) { // Spock
+  
+  //Neo
+  if (userInput == 0) {
     if (cpu == 1 || cpu == 3) {
       println("Spock win");
     } else if (cpu == 2 || cpu == 4) {
@@ -40,7 +42,8 @@ void verificarVencedor() {
       println("Empate");
     }
   }
-  if (userInput == 1) { // Tesoura
+  //Trinity
+  if (userInput == 1) {
     if (cpu == 2 || cpu == 4) {
       println("Tesoura win");
     } else if (cpu == 0 || cpu == 3) {
@@ -50,7 +53,8 @@ void verificarVencedor() {
     }
   }
 
-  if (userInput == 2) { // Papel
+  //Morpheus
+  if (userInput == 2) {
     if (cpu == 0 || cpu == 3) {
       println("Papel win");
     } else if (cpu == 1 || cpu == 4) {
@@ -60,7 +64,8 @@ void verificarVencedor() {
     }
   }
 
-  if (userInput == 3) { // Pedra
+  //Oraculo
+  if (userInput == 3) {
     if (cpu == 1 || cpu == 4) {
       println("Pedra win");
     } else if (cpu == 0 || cpu == 2) {
@@ -70,7 +75,8 @@ void verificarVencedor() {
     }
   }
 
-  if (userInput == 4) { // Lagarto
+  //errorTelaAzul
+  if (userInput == 4) {
     if (cpu == 0 || cpu == 2) {
       println("Lagarto win");
     } else if (cpu == 1 || cpu == 3) {
