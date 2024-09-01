@@ -119,7 +119,7 @@ void verificarVencedor() {
       text("Trinity vence " + getChoiceName(int(cpu)) + ". Você venceu!", 300, 200);
       image(bTrin, 500, 250);
     } else if (cpu == 0 || cpu == 3) {
-      text(getChoiceName(int(cpu)) + "foi mais forte que você. Trinity perdeu.", 250, 200);
+      text(getChoiceName(int(cpu)) + " foi mais forte que você. Trinity perdeu.", 250, 200);
       image(destroyImg, 390, 220, 400, 200);
     } else {
       text("Empate. Melhor tentar de novo.", 300, 200);
