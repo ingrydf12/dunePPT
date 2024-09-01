@@ -1,22 +1,20 @@
-void desenharBotoes() {
-  //Declarei um array pra listar as opções
-  String[] opcoes = {"Neo", "Trinity", "Morpheus", "Oraculo", "MatrixComputer"};
-  for (int i = 0; i < opcoes.length; i++) {
-    fill(200);
-    rect(20, 100 + i * 50, 150, 40);
-    fill(0);
-    text(opcoes[i], 25, 130 + i * 50);
-  }
+void desenharBotoes(){
+  image(bNeo, 60, 560);
+  image(bTrin, 300, 560); //Tamanho do botão (250) + espaçamento (50)
+  image(bMorp, 540, 560);
+  image(bOrac, 780, 560);
+  image(bPC, 1020, 560);
 }
 
-//Usando o switch pra retornar uma string dependendo da escolha
 String getChoiceName(int choice) {
+  //não sei se poderia usar o switch/case já, porém achei mais prático do que colocar um monte de if
+  //serve pra retornar as escolhas, no caso uma string, tanto da cpu como userInput, aí só precisa definir quando chamar 
   switch(choice) {
     case 0: return "Neo";
     case 1: return "Trinity";
     case 2: return "Morpheus";
     case 3: return "Oraculo";
-    case 4: return "errorStopPC";
+    case 4: return "PC da Matrix";
     default: return "Desconhecido";
   }
 }
