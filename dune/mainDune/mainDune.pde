@@ -1,30 +1,49 @@
 //Necessário instalar bibliotecas: SOUND
 //Ocean of Dunes: The Lost Treasure (ideia)
-int screen, score;
-int counter = 0;
+int screen, score = 0;
+int counter = 0, life= 3;
+PImage heart;
 
 boolean gameIsPaused = false, gameOver = false;
-PImage imgInicial, imgInfo1, imgInfo2, imgInfo3, imgInfo4, imgGame, imgPause;
-PImage bPlayHover, bInfoHover;
+PImage title, imgInfo1, imgInfo2, imgInfo3, imgInfo4, imgGame, imgPause, imgOver;
+PImage bPn, bIn, bPlayAgainH, bMenuH, bPlayHover, bInfoHover;
 PFont gameScore;
 
+boolean lastMousePressed = false;
+boolean clicou = false;
+
+//parallax menu
+PImage bg, fg;
+float bgX = 0;
+float fgX = 0;
 
 void setup() {
-  size(700, 500); //valor da tela inicial
+  size(700, 500);
 
   PImage icon = loadImage("icon.jpg");
-  gameScore = createFont("data/PixelifySans-Bold.ttf", 30);
+  gameScore = createFont("data/xilosa_.ttf", 24);
   surface.setIcon(icon);
   surface.setTitle("Dune Game by Ingryd");
 
-  imgInicial = loadImage("telaInitial.png");
+  //MARK: - Images
   imgInfo1 = loadImage("assets/telaInfo1.png");
   imgInfo2 = loadImage("assets/telaInfo2.png");
   imgInfo3 = loadImage("assets/telaInfo3.png");
   imgInfo4 = loadImage("assets/telaInfo4.png");
   imgGame = loadImage("assets/mainGame.png");
-  bPlayHover = loadImage("buttonPlay.png");
-  bInfoHover = loadImage("buttonInfo.png");
+  imgOver = loadImage("gameOver.png");
+  bPn = loadImage("interactions/buttonPlayN.png");
+  bIn = loadImage("interactions/buttonInfoN.png");
+  title = loadImage("data/menu/title.png");
+  bPlayAgainH = loadImage("interactions/bPlayAgainH.png");
+  bMenuH = loadImage("interactions/bMenuH.png");
+  bPlayHover = loadImage("interactions/buttonPlay.png");
+  bInfoHover = loadImage("interactions/buttonInfo.png");
+
+  heart = loadImage("data/assets/s-heart.png");
+
+  bg = loadImage("data/menu/background.png");
+  fg = loadImage("data/menu/foreground.png");
 
   posx = width/2;
   posy = height/2 + 200;
@@ -46,30 +65,9 @@ void setup() {
 }
 
 void draw() {
-
-
+  //Parallax -> o foreground se move em loop com certa velocidade
   if (screen == 0) {
-    image(imgInicial, 0, 0, width, height);
-    //Hover interaction
-    if (mouseX >= 250 && mouseX <= 450 && mouseY >= 270 && mouseY <= 320) {
-      image(bPlayHover, 245, 270); //tive que alterar a posição pra preencher
-    }
-
-    if (mouseX >= 250 && mouseX <= 450 && mouseY >= 340 && mouseY <= 390) {
-      image(bInfoHover, 245, 335); //tive que alterar a posição pra preencher
-    }
-
-    //Click event
-    if (mousePressed) {
-      // Verifica se o mouse está dentro da área específica para mudar a tela
-      if (mouseX >= 250 && mouseX <= 450 && mouseY >= 270 && mouseY <= 320) {
-        screen = 1;  // Muda para a tela do jogo
-      }
-
-      if (mouseX >= 250 && mouseX <= 450 && mouseY >= 340 && mouseY <= 390) {
-        screen = 2;  // Muda para tela de info
-      }
-    }
+    menu();
   } else if (screen == 1) {
     if (gameIsPaused) {
       drawPauseScreen(); // Desenha a tela de pausa se o jogo estiver pausado
@@ -77,42 +75,14 @@ void draw() {
       gamePlay(); // Atualiza e desenha o jogo se não estiver pausado
     }
   } else if (screen == 2) {
-
-
-    if (counter == 0) {
-      image(imgInfo1, 0, 0, width, height);
-      if (mousePressed) {
-        if (mouseX >= 600 && mouseX <= 630 && mouseY >= 232 && mouseY <= 232 + 30) {
-          if (lastMousePressed != mousePressed) {
-            counter++;
-            lastMousePressed = mousePressed;
-        }
-      }
-      if (counter == 1) {
-        image(imgInfo2, 0, 0); // proxima image
-        if (mousePressed) {
-          if (mouseX >= 600 && mouseX <= 630 && mouseY >= 232 && mouseY <= 232 + 30) {
-            if (lastMousePressed != mousePressed) {
-            counter++;
-            lastMousePressed = mousePressed;
-          }
-        }
-
-        if (counter == 2) {
-          image(imgInfo3, 0, 0); // Display the third image
-          counter++;
-        } else if (counter == 3) {
-          image(imgInfo4, 0, 0); // Display the fourth image
-        }
-      }
-      println(counter);
-
-      // Voltar
-      if (mousePressed) {
-        if (mouseX >= 14 && mouseX <= 14 + 168 && mouseY >= 12 && mouseY <= 12 + 42) {
-          screen = 0;  // Botão de voltar para menu
-        }
+    carrosselImg();
+    // Voltar
+    if (mousePressed) {
+      if (mouseX >= 14 && mouseX <= 14 + 168 && mouseY >= 12 && mouseY <= 12 + 42) {
+        screen = 0;  // Botão de voltar para menu
       }
     }
+  } else if (screen == 4) {
+    gameOverScreen();
   }
 }
