@@ -45,11 +45,10 @@ void gamePlay() {
 
 
   colisaoL();
-
-  //GAME OVER
   checkGameOver();
 }
 
+//MARK: - Game Exp
 // reseta o jogo quando volta pra tela inicial dentro do mainGame
 void resetGame() {
   score = 0;
@@ -64,7 +63,14 @@ void resetGame() {
   chopY = 0;
 }
 
-//Movimentação
+void checkGameOver() {
+  if (life == 0) {
+    gameOver = true;
+    screen = 4;
+  }
+}
+
+//MARK: - Movimentação
 void keyPressed() {
   if (key == 'R' || key == 'r') {
     gameIsPaused = !gameIsPaused; // Alterna o estado de pausa
@@ -93,9 +99,18 @@ void keyReleased() {
   }
 }
 
-void checkGameOver() {
-  if (life == 0) {
-    gameOver = true;
-    screen = 4;
+//MARK: - LIFE
+void drawLives() {
+  int heartWidth = heart.width;
+  int startX = width - (life * (heartWidth + 10)); // posicao inicial
+
+  for (int i = 0; i < life; i++) {
+    image(heart, startX + i * (heartWidth + 10), 10);
+  }
+}
+
+void removeLife() {
+  if (life > 0) {
+    life--;
   }
 }

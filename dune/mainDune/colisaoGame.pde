@@ -9,7 +9,7 @@ void colisaoL(){
   if (checkCollision(posx, posy, 40, 40, sharkX, sharkY, 40, 40)) {
     sharkX = -100;
     sharkY = -100;
-    life -= 1; //tira a vida aí 
+    removeLife();
   }
 }
 

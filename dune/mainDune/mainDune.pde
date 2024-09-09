@@ -1,7 +1,7 @@
 //Necessário instalar bibliotecas: SOUND
 //Ocean of Dunes: The Lost Treasure (ideia)
 int screen, score = 0;
-int counter = 0, life= 3;
+int counter = 0, life = 3;
 PImage heart;
 
 boolean gameIsPaused = false, gameOver = false;
@@ -73,6 +73,7 @@ void draw() {
       drawPauseScreen(); // Desenha a tela de pausa se o jogo estiver pausado
     } else {
       gamePlay(); // Atualiza e desenha o jogo se não estiver pausado
+      drawLives();
     }
   } else if (screen == 2) {
     carrosselImg();
